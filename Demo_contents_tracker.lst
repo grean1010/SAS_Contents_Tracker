@@ -1,0 +1,32 @@
+                              Summary of Datasets Throughout Program                             1
+                                                                 16:05 Wednesday, October 28, 2020
+
+ 
+ Library     Dataset       Number of      Number of
+ Name        Name          Variables    Observations        Date Created
+
+ TESTDATA    STATES            2             47         11MAY18:11:20:09
+ WORK        STATES            2             46         28OCT20:16:05:03
+ WORK        US                2              1         28OCT20:16:05:03
+ WORK        STATES            2             46         28OCT20:16:05:04
+ WORK        TOTAL_COMP        1              1         28OCT20:16:05:04
+
+ 
+ 
+    Date Modified    Note
+
+ 11MAY18:11:20:09    States data as imported                                                    
+ 28OCT20:16:05:03    States data without total                                                  
+ 28OCT20:16:05:03    Total Only                                                                 
+ 28OCT20:16:05:04    States data de-duplicated                                                  
+ 28OCT20:16:05:04    States collapsed to total only                                             
+
+    Elapsed     Elapsed    Elapsed
+       Time        Time      Time
+  (minutes)     (hours)     (days)
+
+        .           .         .   
+ 1297724.90    21628.75    901.198
+       0.00        0.00      0.000
+       0.01        0.00      0.000
+       0.00        0.00      0.000

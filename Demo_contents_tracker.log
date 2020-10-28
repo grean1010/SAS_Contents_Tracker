@@ -1,0 +1,347 @@
+1                                                          The SAS System                          16:05 Wednesday, October 28, 2020
+
+NOTE: Unable to open SASUSER.REGSTRY. WORK.REGSTRY will be opened instead.
+NOTE: All registry changes will be lost at the end of the session.
+
+WARNING: Unable to copy SASUSER registry to WORK registry. Because of this, you will not see registry customizations during this 
+         session.
+NOTE: Unable to open SASUSER.PROFILE. WORK.PROFILE will be opened instead.
+NOTE: All profile changes will be lost at the end of the session.
+NOTE: Copyright (c) 2002-2012 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.4 (TS1M3) 
+      Licensed to MATHEMATICA POLICY RESEARCH INC, Site 70083794.
+NOTE: This session is executing on the X64_8PRO  platform.
+
+
+
+NOTE: Updated analytical products:
+      
+      SAS/STAT 14.1
+      SAS/ETS 14.1
+      SAS/IML 14.1
+
+NOTE: Additional host information:
+
+ X64_8PRO WIN 6.2.9200  Workstation
+
+NOTE: SAS initialization used:
+      real time           1.53 seconds
+      cpu time            1.04 seconds
+      
+1          /*********************************************************************/
+2          /* Program    :  Demo_contents_tracker.sas                           */
+3          /* Description:  Demonstrate macros and tricks as outlined in the    */
+4          /*               Data Quality presentation given on xx/xx/2018       */
+5          /* Input      :  DQ macros, dummy data                               */
+6          /* Output     :  Lst file with helpful information                   */
+7          /* Note       :                                                      */
+8          /*                                                                   */
+9          /*********************************************************************/
+10         
+11         * Libnames for use in demo;
+12         libname testdata "C:\Users\mhudson\marias_projects\SAS_Contents_Tracker";
+NOTE: Libref TESTDATA was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: C:\Users\mhudson\marias_projects\SAS_Contents_Tracker
+13         
+14         %include "C:\Users\mhudson\marias_projects\SAS_Contents_Tracker\Contents_Tracker.sas";
+93         
+94         %prep_contents_tracker;
+
+NOTE: The file WORK.CONTENTS_TRACKER (memtype=DATA) was not found, but appears on a DELETE 
+      statement.
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.09 seconds
+      cpu time            0.06 seconds
+2                                         The SAS System         16:05 Wednesday, October 28, 2020
+
+      
+
+95         
+96         %update_contents_tracker(ds2check=testdata.states,note=States data as imported);
+
+NOTE: The data set WORK.C has 2 observations and 41 variables.
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.05 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 2 observations read from the data set WORK.C.
+NOTE: The data set WORK.C has 2 observations and 41 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.C.
+NOTE: The data set WORK.C has 1 observations and 7 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.03 seconds
+      
+
+
+NOTE: Appending WORK.C to WORK.CONTENTS_TRACKER.
+NOTE: BASE data set does not exist. DATA file is being copied to BASE file.
+NOTE: There were 1 observations read from the data set WORK.C.
+NOTE: The data set WORK.CONTENTS_TRACKER has 1 observations and 7 variables.
+NOTE: PROCEDURE APPEND used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.03 seconds
+      
+
+
+NOTE: Deleting WORK.C (memtype=DATA).
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+97         
+98         data states us (keep=state_code state_total_obs rename=(state_total_obs = tota));
+99           set testdata.states;
+100          if state_code = 'US' then output us;
+101          else output states;
+102        run;
+
+NOTE: There were 47 observations read from the data set TESTDATA.STATES.
+NOTE: The data set WORK.STATES has 46 observations and 2 variables.
+3                                         The SAS System         16:05 Wednesday, October 28, 2020
+
+NOTE: The data set WORK.US has 1 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.05 seconds
+      cpu time            0.03 seconds
+      
+
+103        
+104        %update_contents_tracker(ds2check=states,note=States data without total);
+
+NOTE: The data set WORK.C has 2 observations and 41 variables.
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.05 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 2 observations read from the data set WORK.C.
+NOTE: The data set WORK.C has 2 observations and 41 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.C.
+NOTE: The data set WORK.C has 1 observations and 7 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: Appending WORK.C to WORK.CONTENTS_TRACKER.
+NOTE: There were 1 observations read from the data set WORK.C.
+NOTE: 1 observations added.
+NOTE: The data set WORK.CONTENTS_TRACKER has 2 observations and 7 variables.
+NOTE: PROCEDURE APPEND used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: Deleting WORK.C (memtype=DATA).
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.03 seconds
+      
+
+105        %update_contents_tracker(ds2check=us,note=Total Only);
+
+NOTE: The data set WORK.C has 2 observations and 41 variables.
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.06 seconds
+4                                         The SAS System         16:05 Wednesday, October 28, 2020
+
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 2 observations read from the data set WORK.C.
+NOTE: The data set WORK.C has 2 observations and 41 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.C.
+NOTE: The data set WORK.C has 1 observations and 7 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: Appending WORK.C to WORK.CONTENTS_TRACKER.
+NOTE: There were 1 observations read from the data set WORK.C.
+NOTE: 1 observations added.
+NOTE: The data set WORK.CONTENTS_TRACKER has 3 observations and 7 variables.
+NOTE: PROCEDURE APPEND used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Deleting WORK.C (memtype=DATA).
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+
+106        
+107        proc sort data=states nodupkey;  by state_code; run;
+
+NOTE: There were 46 observations read from the data set WORK.STATES.
+NOTE: 0 observations with duplicate key values were deleted.
+NOTE: The data set WORK.STATES has 46 observations and 2 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.03 seconds
+      
+
+108        
+109        %update_contents_tracker(ds2check=states,note=States data de-duplicated);
+
+NOTE: The data set WORK.C has 2 observations and 41 variables.
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.05 seconds
+5                                         The SAS System         16:05 Wednesday, October 28, 2020
+
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 2 observations read from the data set WORK.C.
+NOTE: The data set WORK.C has 2 observations and 41 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.C.
+NOTE: The data set WORK.C has 1 observations and 7 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: Appending WORK.C to WORK.CONTENTS_TRACKER.
+NOTE: There were 1 observations read from the data set WORK.C.
+NOTE: 1 observations added.
+NOTE: The data set WORK.CONTENTS_TRACKER has 4 observations and 7 variables.
+NOTE: PROCEDURE APPEND used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Deleting WORK.C (memtype=DATA).
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+
+110        
+111        data total_comp (keep=total);
+112          set states end=lastobs;
+113          if _n_ = 1 then total = 0;
+114          retain total;
+115          total = total + state_total_obs;
+116          if lastobs then output;
+117        run;
+
+NOTE: There were 46 observations read from the data set WORK.STATES.
+NOTE: The data set WORK.TOTAL_COMP has 1 observations and 1 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+      
+
+118        
+6                                         The SAS System         16:05 Wednesday, October 28, 2020
+
+119        %update_contents_tracker(ds2check=total_comp,note=States collapsed to total only);
+
+NOTE: The data set WORK.C has 1 observations and 41 variables.
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.C.
+NOTE: The data set WORK.C has 1 observations and 41 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.C.
+NOTE: The data set WORK.C has 1 observations and 7 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: Appending WORK.C to WORK.CONTENTS_TRACKER.
+NOTE: There were 1 observations read from the data set WORK.C.
+NOTE: 1 observations added.
+NOTE: The data set WORK.CONTENTS_TRACKER has 5 observations and 7 variables.
+NOTE: PROCEDURE APPEND used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Deleting WORK.C (memtype=DATA).
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+120        
+121        %finalize_contents_tracker;
+
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      1 at 121:148   1 at 121:215   1 at 121:21    
+NOTE: There were 5 observations read from the data set WORK.CONTENTS_TRACKER.
+NOTE: The data set WORK.CONTENTS_TRACKER has 5 observations and 10 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+      
+7                                         The SAS System         16:05 Wednesday, October 28, 2020
+
+
+
+NOTE: There were 5 observations read from the data set WORK.CONTENTS_TRACKER.
+NOTE: The PROCEDURE PRINT printed page 1.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           2.81 seconds
+      cpu time            1.64 seconds
+      
